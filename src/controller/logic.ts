@@ -19,6 +19,16 @@ const bcrypt = require("bcryptjs");
 const Appstring = require("../Appstring");
 require("dotenv").config();
 var mongoose = require("mongoose");
+declare global {
+  namespace Express {
+      interface Request {
+          userId: any;
+          userType:any;
+          empId:any;
+          // cookies:any
+      }
+  }
+}
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -32,7 +42,8 @@ const register = async (req: Request, res: Response) => {
       password: hashPassword,
       PhoneNo: req.body.PhoneNo
         ? phone(req.body?.PhoneNo)?.phoneNumber
-        : undefined, //PhoneNo.phoneNumber
+        : undefined, //PhoneNo.phoneNumber,
+        role:req.body.role
     });
 
     // const address = await addressModel.create({
@@ -74,6 +85,7 @@ const login = async (req: Request, res: Response) => {
             firstName: user.firstName,
             email: req.body?.email,
             PhoneNo: req.body?.PhoneNo,
+            role:user?.role
           };
 
           const token = await jwt.sign(params, process.env.SECRET_KEY, {
@@ -101,6 +113,7 @@ const login = async (req: Request, res: Response) => {
             firstName: req.body.firstName,
             email: req.body?.email,
             PhoneNo: req.body?.PhoneNo,
+            role:user?.role
           };
 
           const token = await jwt.sign(params, process.env.SECRET_KEY, {

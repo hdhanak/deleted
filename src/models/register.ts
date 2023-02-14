@@ -24,8 +24,8 @@ const registerSchema = new Schema({
         // phoneNumberFormat: mongooseTypePhone.PhoneNumberFormat.INTERNATIONAL, // can be omitted to keep raw input
         // defaultRegion: 'RU',
         // parseOnGet: false
-    }
-
+    },
+    role:String
 
 
     
