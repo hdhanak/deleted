@@ -38,11 +38,13 @@ export const fileFilter = (req: Request, file: Express.Multer.File, callback: Fi
 
 console.log(typeof(auth),'type');
 // console.log(auth('hello'));
+console.log('add log');
 
 router.post('/auth/register',V.register,register)
 router.post('/auth/login',V.login,login)
 router.get('/auth/getAllUser',getAllUser)
-router.get('/getRegister',auth([Role.Admin,Role.User]),getRegister)
+router.get('/getRegister',auth(Role.Admin),getRegister)
+
 // router.post('/imgUpload',imgUpload)
 // router.post('/addAddress',V.addAddress,auth,addAddress)
 // router.get('/searchEmailAndPhone',searchEmailAndPhone)
